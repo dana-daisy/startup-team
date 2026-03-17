@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>스타트업 팀 시뮬레이터</title>
+    <title>AI 스타트업 시뮬레이터</title>
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,6 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- 상단 헤더 -->
         <header class="top-bar">
             <div class="company-info">
                 <h1>🚀 AI 스타트업</h1>
@@ -27,18 +26,13 @@
             </div>
         </header>
 
-        <!-- 메인 게임 영역 -->
         <main class="game-area">
-            <canvas id="gameCanvas" width="800" height="600"></canvas>
-            
-            <!-- 대시보드 -->
-            <div class="dashboard">
-                <h2>📊 팀 상태</h2>
-                <div class="agents-status" id="agentsStatus">
-                    <!-- 에이전트 상태가 여기에 동적으로 추가됨 -->
-                </div>
+            <canvas id="gameCanvas"></canvas>
+            <div class="dashboard" id="dashboard">
+                <h2>📊 팀 현황</h2>
+                <div class="agents-status" id="agentsStatus"></div>
                 <div class="project-progress">
-                    <h3>프로젝트 진행률</h3>
+                    <h3>🎯 프로젝트 진행률</h3>
                     <div class="progress-bar">
                         <div class="progress-fill" id="projectProgress"></div>
                     </div>
@@ -47,29 +41,37 @@
             </div>
         </main>
 
-        <!-- 하단 로그 패널 -->
         <footer class="log-panel">
             <h3>📝 활동 로그</h3>
             <div class="log-content" id="logContent">
-                <div class="log-entry">게임을 시작합니다...</div>
+                <div class="log-entry">시스템을 초기화하는 중...</div>
             </div>
         </footer>
     </div>
 
-    <!-- 말풍선 템플릿 -->
-    <div class="speech-bubble" id="speechBubble" style="display: none;">
+    <!-- 프로필 팝업 -->
+    <div class="profile-popup" id="profilePopup" style="display:none;">
+        <div class="profile-card">
+            <div class="profile-close" id="profileClose">✕</div>
+            <div class="profile-avatar" id="profileAvatar"></div>
+            <div class="profile-name" id="profileName"></div>
+            <div class="profile-role" id="profileRole"></div>
+            <div class="profile-personality" id="profilePersonality"></div>
+            <div class="profile-task" id="profileTask"></div>
+        </div>
+    </div>
+
+    <div class="speech-bubble" id="speechBubble" style="display:none;">
         <div class="bubble-content"></div>
     </div>
 
     <script src="agents.js"></script>
     <script src="app.js"></script>
-    
     <script>
-        // PWA 설치
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js')
-                .then(reg => console.log('Service Worker 등록됨'))
-                .catch(err => console.log('Service Worker 등록 실패', err));
+                .then(reg => console.log('SW 등록됨'))
+                .catch(err => console.log('SW 실패', err));
         }
     </script>
 </body>

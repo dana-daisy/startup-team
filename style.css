@@ -1,385 +1,172 @@
 /* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Press Start 2P',monospace;
+    font-size:8px;
+    background:#0f0f23;
+    color:#fff;
+    overflow:hidden;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
 }
 
-/* 기본 폰트와 다크 모드 */
-body {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    background-color: #0f0f23;
-    color: #ffffff;
-    overflow: hidden;
-    user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
+.app-container{height:100vh;height:100dvh;display:flex;flex-direction:column;}
+
+/* Top Bar */
+.top-bar{
+    background:linear-gradient(180deg,#1e1e3a,#16213e);
+    padding:10px 20px;
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:3px solid #0d1b2a;
+    min-height:60px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.5);
+}
+.company-info h1{font-size:11px;color:#00ff88;margin-bottom:4px;text-shadow:0 0 8px rgba(0,255,136,0.4);}
+.date-time{font-size:6px;color:#aaa;}
+.money{
+    background:linear-gradient(135deg,#0f3460,#1a1a4e);
+    padding:8px 14px;border-radius:6px;
+    border:2px solid #ffd700;
+    font-size:8px;color:#ffd700;
+    text-shadow:0 0 6px rgba(255,215,0,0.3);
 }
 
-/* 앱 컨테이너 */
-.app-container {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+/* Game Area */
+.game-area{flex:1;display:flex;overflow:hidden;background:#16213e;}
+
+#gameCanvas{
+    flex:1;
+    image-rendering:pixelated;
+    image-rendering:-moz-crisp-edges;
+    image-rendering:crisp-edges;
+    cursor:pointer;
 }
 
-/* 상단 바 */
-.top-bar {
-    background: #1a1a2e;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #16213e;
-    min-height: 60px;
+/* Dashboard */
+.dashboard{
+    width:260px;
+    background:linear-gradient(180deg,#1a1a2e,#12122a);
+    border-left:3px solid #0d1b2a;
+    padding:12px;
+    overflow-y:auto;
+}
+.dashboard h2{font-size:9px;color:#00ff88;margin-bottom:12px;text-align:center;text-shadow:0 0 6px rgba(0,255,136,0.3);}
+.dashboard h3{font-size:7px;color:#ccc;margin:12px 0 6px;}
+
+/* Agent Cards */
+.agent-card{
+    background:linear-gradient(135deg,#0f2847,#0a1a33);
+    border:1px solid #1e3a5f;
+    border-left:3px solid #00ff88;
+    border-radius:6px;
+    padding:8px 10px;
+    margin-bottom:6px;
+    cursor:pointer;
+    transition:all .2s;
+}
+.agent-card:hover{background:linear-gradient(135deg,#153560,#0f2847);transform:translateX(2px);}
+.agent-card:active{transform:scale(0.97);}
+.agent-card-header{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.agent-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.agent-name{font-size:7px;font-weight:bold;}
+.agent-role-tag{font-size:5px;color:#888;margin-left:auto;}
+.agent-task{font-size:5px;color:#aaa;line-height:1.4;margin-top:2px;}
+.agent-status-icon{font-size:5px;margin-top:3px;}
+.status-working{color:#00ff88;}
+.status-meeting{color:#ff6b9d;}
+.status-coffee{color:#d4a574;}
+.status-moving{color:#4ecdc4;}
+.status-thinking{color:#a78bfa;}
+
+/* Progress */
+.progress-bar{width:100%;height:14px;background:#0a1a33;border:1px solid #1e3a5f;border-radius:4px;overflow:hidden;margin:6px 0;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#00ff88,#4ecdc4,#00ff88);background-size:200% 100%;animation:shimmer 2s infinite;width:0%;transition:width .5s;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+#progressText{font-size:6px;color:#ccc;}
+
+/* Log Panel */
+.log-panel{
+    height:110px;
+    background:linear-gradient(180deg,#12122a,#0f0f23);
+    border-top:3px solid #0d1b2a;
+    padding:8px 15px;
+    overflow:hidden;
+}
+.log-panel h3{font-size:7px;color:#00ff88;margin-bottom:6px;}
+.log-content{height:calc(100% - 22px);overflow-y:auto;font-size:5px;line-height:1.5;}
+.log-entry{margin-bottom:2px;opacity:0;animation:fadeIn .3s forwards;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Profile Popup */
+.profile-popup{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,0.7);
+    display:flex;align-items:center;justify-content:center;
+    z-index:2000;
+    backdrop-filter:blur(4px);
+}
+.profile-card{
+    background:linear-gradient(135deg,#1a1a3e,#0f1a2e);
+    border:2px solid #00ff88;
+    border-radius:12px;
+    padding:24px;
+    width:280px;
+    text-align:center;
+    box-shadow:0 0 30px rgba(0,255,136,0.15);
+    position:relative;
+}
+.profile-close{position:absolute;top:8px;right:12px;font-size:12px;cursor:pointer;color:#888;}
+.profile-close:hover{color:#fff;}
+.profile-avatar{width:64px;height:64px;margin:0 auto 12px;border-radius:8px;border:2px solid #00ff88;overflow:hidden;}
+.profile-avatar canvas{width:100%;height:100%;image-rendering:pixelated;}
+.profile-name{font-size:10px;color:#fff;margin-bottom:4px;}
+.profile-role{font-size:7px;color:#00ff88;margin-bottom:10px;}
+.profile-personality{font-size:6px;color:#aaa;line-height:1.6;margin-bottom:10px;text-align:left;padding:8px;background:rgba(0,0,0,0.3);border-radius:6px;}
+.profile-task{font-size:7px;color:#ffd700;padding:8px;background:rgba(255,215,0,0.1);border-radius:6px;border:1px solid rgba(255,215,0,0.2);}
+
+/* Speech Bubble */
+.speech-bubble{
+    position:absolute;
+    background:rgba(0,0,0,0.85);
+    border:2px solid #fff;border-radius:8px;
+    padding:6px 10px;font-size:6px;color:#fff;
+    pointer-events:none;z-index:1000;max-width:160px;word-wrap:break-word;
+}
+.speech-bubble::after{
+    content:'';position:absolute;bottom:-8px;left:20px;
+    border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fff;
 }
 
-.company-info h1 {
-    font-size: 10px;
-    color: #00ff88;
-    margin-bottom: 5px;
-}
+/* Scrollbar */
+.log-content::-webkit-scrollbar,.dashboard::-webkit-scrollbar{width:4px;}
+.log-content::-webkit-scrollbar-track,.dashboard::-webkit-scrollbar-track{background:#0a0a1a;}
+.log-content::-webkit-scrollbar-thumb,.dashboard::-webkit-scrollbar-thumb{background:#1e3a5f;border-radius:2px;}
 
-.date-time {
-    font-size: 6px;
-    color: #cccccc;
+/* Responsive - Mobile */
+@media(max-width:768px){
+    .top-bar{padding:8px 12px;min-height:46px;}
+    .company-info h1{font-size:8px;}
+    .date-time{font-size:5px;}
+    .money{font-size:6px;padding:6px 8px;}
+    .game-area{flex-direction:column;}
+    #gameCanvas{order:1;}
+    .dashboard{width:100%;max-height:160px;order:2;border-left:none;border-top:3px solid #0d1b2a;}
+    .dashboard h2{font-size:7px;margin-bottom:8px;}
+    .agents-status{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
+    .agent-card{padding:5px 6px;margin-bottom:0;}
+    .agent-role-tag{display:none;}
+    .log-panel{height:70px;padding:6px 10px;}
+    .log-content{font-size:4px;}
+    .profile-card{width:240px;padding:16px;}
 }
-
-.balance {
-    display: flex;
-    align-items: center;
+@media(max-width:480px){
+    .agents-status{grid-template-columns:repeat(2,1fr);}
+    .dashboard{max-height:130px;}
+    .log-panel{height:55px;}
 }
-
-.money {
-    background: #0f3460;
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 2px solid #16213e;
-    font-size: 8px;
-    color: #ffd700;
+@media(min-width:769px) and (max-width:1024px){
+    .dashboard{width:220px;}
 }
-
-/* 메인 게임 영역 */
-.game-area {
-    flex: 1;
-    display: flex;
-    background: #16213e;
-    overflow: hidden;
-}
-
-/* 캔버스 */
-#gameCanvas {
-    flex: 1;
-    background: #2d3748;
-    border: 2px solid #4a5568;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-    cursor: pointer;
-}
-
-/* 대시보드 */
-.dashboard {
-    width: 250px;
-    background: #1a1a2e;
-    border-left: 2px solid #16213e;
-    padding: 15px;
-    overflow-y: auto;
-}
-
-.dashboard h2 {
-    font-size: 8px;
-    color: #00ff88;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.dashboard h3 {
-    font-size: 7px;
-    color: #cccccc;
-    margin: 10px 0 5px 0;
-}
-
-/* 에이전트 상태 */
-.agents-status {
-    margin-bottom: 20px;
-}
-
-.agent-card {
-    background: #0f3460;
-    border: 1px solid #16213e;
-    border-radius: 3px;
-    padding: 8px;
-    margin-bottom: 8px;
-}
-
-.agent-name {
-    font-size: 6px;
-    color: #00ff88;
-    margin-bottom: 3px;
-}
-
-.agent-task {
-    font-size: 5px;
-    color: #cccccc;
-    line-height: 1.3;
-}
-
-.agent-status {
-    font-size: 5px;
-    margin-top: 3px;
-}
-
-.status-working { color: #00ff88; }
-.status-meeting { color: #ff6b6b; }
-.status-break { color: #ffd700; }
-.status-thinking { color: #4ecdc4; }
-
-/* 프로젝트 진행률 */
-.project-progress {
-    margin-top: 15px;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 12px;
-    background: #0f3460;
-    border: 1px solid #16213e;
-    border-radius: 2px;
-    overflow: hidden;
-    margin: 5px 0;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #00ff88, #4ecdc4);
-    transition: width 0.3s ease;
-    width: 0%;
-}
-
-#progressText {
-    font-size: 6px;
-    color: #cccccc;
-}
-
-/* 로그 패널 */
-.log-panel {
-    height: 120px;
-    background: #1a1a2e;
-    border-top: 2px solid #16213e;
-    padding: 10px 15px;
-    overflow: hidden;
-}
-
-.log-panel h3 {
-    font-size: 7px;
-    color: #00ff88;
-    margin-bottom: 8px;
-}
-
-.log-content {
-    height: calc(100% - 25px);
-    overflow-y: auto;
-    font-size: 5px;
-    line-height: 1.4;
-}
-
-.log-entry {
-    margin-bottom: 3px;
-    color: #cccccc;
-    opacity: 0;
-    animation: fadeIn 0.3s forwards;
-}
-
-.log-entry:last-child {
-    color: #ffffff;
-}
-
-.log-entry.meeting {
-    color: #ff6b6b;
-}
-
-.log-entry.work {
-    color: #00ff88;
-}
-
-.log-entry.break {
-    color: #ffd700;
-}
-
-/* 말풍선 */
-.speech-bubble {
-    position: absolute;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #ffffff;
-    border-radius: 8px;
-    padding: 6px 10px;
-    font-size: 6px;
-    color: #ffffff;
-    pointer-events: none;
-    z-index: 1000;
-    max-width: 150px;
-    word-wrap: break-word;
-}
-
-.speech-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 20px;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid #ffffff;
-}
-
-.bubble-content {
-    text-align: center;
-    line-height: 1.2;
-}
-
-/* 애니메이션 */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-}
-
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-    .app-container {
-        height: 100vh;
-        height: 100dvh; /* 모바일 뷰포트 */
-    }
-    
-    .top-bar {
-        padding: 8px 15px;
-        min-height: 50px;
-    }
-    
-    .company-info h1 {
-        font-size: 8px;
-    }
-    
-    .date-time {
-        font-size: 5px;
-    }
-    
-    .money {
-        font-size: 6px;
-        padding: 6px 8px;
-    }
-    
-    .game-area {
-        flex-direction: column;
-    }
-    
-    .dashboard {
-        width: 100%;
-        max-height: 150px;
-        order: 2;
-        padding: 10px;
-    }
-    
-    .dashboard h2 {
-        font-size: 7px;
-        margin-bottom: 8px;
-    }
-    
-    .agents-status {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 5px;
-        margin-bottom: 10px;
-    }
-    
-    .agent-card {
-        padding: 5px;
-        margin-bottom: 0;
-    }
-    
-    .log-panel {
-        height: 80px;
-        padding: 8px 10px;
-    }
-    
-    .log-panel h3 {
-        font-size: 6px;
-        margin-bottom: 5px;
-    }
-    
-    .log-content {
-        font-size: 4px;
-    }
-    
-    .speech-bubble {
-        font-size: 5px;
-        padding: 4px 6px;
-        max-width: 120px;
-    }
-    
-    #gameCanvas {
-        order: 1;
-        width: 100% !important;
-        height: auto !important;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        font-size: 7px;
-    }
-    
-    .company-info h1 {
-        font-size: 7px;
-    }
-    
-    .dashboard {
-        max-height: 120px;
-        padding: 8px;
-    }
-    
-    .agents-status {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .log-panel {
-        height: 60px;
-    }
-}
-
-/* 터치 최적화 */
-@media (hover: none) {
-    #gameCanvas {
-        touch-action: manipulation;
-    }
-}
-
-/* 다크 모드 커스텀 스크롤바 */
-.log-content::-webkit-scrollbar,
-.dashboard::-webkit-scrollbar {
-    width: 6px;
-}
-
-.log-content::-webkit-scrollbar-track,
-.dashboard::-webkit-scrollbar-track {
-    background: #0f3460;
-}
-
-.log-content::-webkit-scrollbar-thumb,
-.dashboard::-webkit-scrollbar-thumb {
-    background: #16213e;
-    border-radius: 3px;
-}
-
-.log-content::-webkit-scrollbar-thumb:hover,
-.dashboard::-webkit-scrollbar-thumb:hover {
-    background: #1a1a2e;
-}
+@media(hover:none){#gameCanvas{touch-action:manipulation;}}
